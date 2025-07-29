@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oussema Bondka - Développeur Frontend</title>
+    <meta name="description" content="Développeur frontend passionné par l'accessibilité, l'UX et les interfaces modernes.">
+    <meta name="author" content="Oussema Bondka">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: hsl(262, 83%, 58%);
+            --primary-foreground: hsl(0, 0%, 98%);
+            --background: hsl(220, 14%, 96%);
+            --foreground: hsl(220, 13%, 9%);
+            --muted-foreground: hsl(220, 9%, 46%);
+            --gradient-primary: linear-gradient(135deg, hsl(262, 83%, 58%), hsl(282, 83%, 68%));
+            --shadow-elegant: 0 10px 30px -10px hsl(262, 83%, 58%, 0.2);
+            --shadow-soft: 0 4px 20px -2px hsl(220, 13%, 9%, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background: var(--background);
+            color: var(--foreground);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .hero-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: linear-gradient(135deg, 
+                hsl(262, 83%, 58%, 0.05), 
+                hsl(282, 83%, 68%, 0.05)), 
+                linear-gradient(135deg, var(--background), hsl(220, 20%, 92%));
+            background-attachment: fixed;
+        }
+
+        .hero-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><defs><linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:hsl(262,83%,58%);stop-opacity:0.03" /><stop offset="100%" style="stop-color:hsl(282,83%,68%);stop-opacity:0.05" /></linearGradient></defs><circle cx="200" cy="200" r="150" fill="url(%23grad1)"/><circle cx="800" cy="150" r="100" fill="url(%23grad1)"/><circle cx="1000" cy="600" r="200" fill="url(%23grad1)"/></svg>') no-repeat center center;
+            background-size: cover;
+            opacity: 0.3;
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 800px;
+            padding: 0 2rem;
+        }
+
+        .hero-title {
+            font-size: clamp(3rem, 8vw, 5rem);
+            font-weight: 700;
+            background: var(--gradient-primary);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.1rem, 3vw, 1.5rem);
+            color: var(--muted-foreground);
+            font-weight: 300;
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.5;
+        }
+
+        .hero-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem 2rem;
+            background: var(--gradient-primary);
+            color: var(--primary-foreground);
+            text-decoration: none;
+            border-radius: 0.75rem;
+            font-weight: 500;
+            font-size: 1.1rem;
+            box-shadow: var(--shadow-elegant);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .hero-button:hover::before {
+            left: 100%;
+        }
+
+        .hero-button:hover {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 20px 40px -10px hsl(262, 83%, 58%, 0.3);
+        }
+
+        .hero-button:active {
+            transform: translateY(0) scale(1.02);
+        }
+
+        .hero-tagline {
+            margin-top: 3rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            color: hsl(220, 9%, 46%, 0.7);
+            letter-spacing: 0.05em;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.02);
+            }
+        }
+
+        .hero-title {
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .hero-subtitle {
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        .hero-button {
+            animation: fadeInUp 0.8s ease-out 0.4s both, pulse 2s ease-in-out infinite;
+        }
+
+        .hero-tagline {
+            animation: fadeInUp 0.8s ease-out 0.6s both;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-content {
+                padding: 0 1rem;
+            }
+            
+            .hero-button {
+                padding: 0.875rem 1.5rem;
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-subtitle {
+                font-size: 1.1rem;
+                margin-bottom: 2rem;
+            }
+            
+            .hero-tagline {
+                font-size: 0.8rem;
+                margin-top: 2rem;
+            }
+        }
+
+        /* Dark mode support */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --background: hsl(220, 27%, 8%);
+                --foreground: hsl(220, 14%, 96%);
+                --muted-foreground: hsl(220, 9%, 54%);
+            }
+            
+            .hero-container {
+                background: linear-gradient(135deg, 
+                    hsl(262, 83%, 58%, 0.08), 
+                    hsl(282, 83%, 68%, 0.08)), 
+                    linear-gradient(135deg, var(--background), hsl(220, 27%, 12%));
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="hero-container">
+        <div class="hero-content">
+            <h1 class="hero-title">Oussema Bondka</h1>
+            
+            <p class="hero-subtitle">
+                Développeur frontend passionné par l'accessibilité, l'UX et les interfaces modernes.
+            </p>
+            
+            <a href="#projects" class="hero-button">
+                Voir mes projets
+            </a>
+            
+            <p class="hero-tagline">
+                Frontend Developer • UX Enthusiast • Accessibility Advocate
+            </p>
+        </div>
+    </main>
+</body>
+</html>
